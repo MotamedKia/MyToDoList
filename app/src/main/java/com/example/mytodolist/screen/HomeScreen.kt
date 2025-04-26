@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,23 +30,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mytodolist.R
 import com.example.mytodolist.logic.RandomIndex
+import com.example.mytodolist.logic.ToDoItems
 import com.example.mytodolist.logic.motiveList
+import com.orhanobut.hawk.Hawk
 import com.ramcosta.composedestinations.annotation.Destination
 
 @Destination(start = true)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var motive by remember { mutableStateOf(motiveList[RandomIndex(motiveList)]) }
-    var itemNum by remember { mutableStateOf(0) }
-    var imporNum by remember { mutableStateOf(0) }
-    var doneNum by remember { mutableStateOf(0) }
+    var toDoListState by remember { mutableStateOf<List<ToDoItems>?>(null) }
 
+    toDoListState = Hawk.get<List<ToDoItems>?>("ToDoes", emptyList()).toMutableList()
+
+    val itemNum by remember { mutableStateOf(toDoListState?.size) }
+    val imporNum by remember { mutableStateOf(toDoListState?.filter { it.importance }?.size) }
+    val doneNum by remember { mutableStateOf(toDoListState?.filter { it.done }?.size) }
+
+//    Column(modifier = Modifier.fillMaxSize()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(36.dp)
+            .padding(horizontal = 36.dp, vertical = 54.dp)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
@@ -62,12 +70,20 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 Text(
                     motive,
                     fontFamily = FontFamily(Font(R.font.bonheur_royale)),
-                    textAlign = TextAlign.Center, fontSize = 55.sp,
+                    textAlign = TextAlign.Center,
+                    fontSize = 55.sp,
                     style = TextStyle(lineHeight = 45.sp)
                 )
             }
         }
-        Spacer(Modifier.height(40.dp))
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 36.dp, vertical = 54.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         OutlinedCard() {
             Column(
                 modifier = Modifier.padding(12.dp),
@@ -79,4 +95,5 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
         }
     }
+//    }
 }

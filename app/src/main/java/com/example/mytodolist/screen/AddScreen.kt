@@ -1,6 +1,8 @@
 package com.example.mytodolist.screen
 
 import android.widget.Toast
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
@@ -49,9 +53,15 @@ fun AddScreen(modifier: Modifier = Modifier) {
     var itemName by rememberSaveable { mutableStateOf("") }
     var itemDescription by rememberSaveable { mutableStateOf("") }
     var itemImportance by rememberSaveable { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
     val context = LocalContext.current
 
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             SplitString(itemName.lowercase(), 6),
             fontSize = 100.sp,
@@ -72,7 +82,7 @@ fun AddScreen(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(12.dp))
         OutlinedTextField(
             value = itemName,
-            onValueChange = { itemName = it },
+            onValueChange = { if (it.length <= 15) itemName = it },
             label = { Text("Name") },
             maxLines = 1
         )
@@ -80,7 +90,9 @@ fun AddScreen(modifier: Modifier = Modifier) {
         OutlinedTextField(
             value = itemDescription,
             onValueChange = { itemDescription = it },
-            label = { Text("Description") })
+            label = { Text("Description") },
+            maxLines = 8
+        )
         Spacer(Modifier.height(24.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
