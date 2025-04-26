@@ -36,7 +36,12 @@ import com.example.mytodolist.logic.ToDoItems
 import com.orhanobut.hawk.Hawk
 
 @Composable
-fun MyToDoItem(modifier: Modifier = Modifier, toDoItems: ToDoItems, listState: List<ToDoItems>?) {
+fun MyToDoItem(
+    modifier: Modifier = Modifier,
+    toDoItems: ToDoItems,
+    listState: List<ToDoItems>?,
+    onClick: () -> Unit
+) {
     val context = LocalContext.current
     var isDone by rememberSaveable { mutableStateOf(toDoItems.done) }
 
@@ -68,6 +73,7 @@ fun MyToDoItem(modifier: Modifier = Modifier, toDoItems: ToDoItems, listState: L
                     Toast
                         .makeText(context, "it's supposed to be opened", Toast.LENGTH_SHORT)
                         .show()
+                    onClick()
                 },
             colors = if (toDoItems.importance) {
                 CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inversePrimary)

@@ -88,7 +88,7 @@ fun AddScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text("Important")
-            Spacer(Modifier.height(55.dp))
+            Spacer(Modifier.width(75.dp))
             IconButton(onClick = { itemImportance = !itemImportance }) {
                 Icon(if (itemImportance) Icons.Default.Done else Icons.Default.Close, "")
             }
@@ -96,16 +96,26 @@ fun AddScreen(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(24.dp))
         Button(
             onClick = {
-                val dbList: List<ToDoItems>? = Hawk.get("ToDoes", emptyList())
-                val finalList = dbList?.toMutableList()
-                finalList?.add(ToDoItems(itemName, itemDescription, itemImportance, false))
-                Hawk.put("ToDoes", finalList)
-                Toast.makeText(context, "Item Added", Toast.LENGTH_SHORT).show()
-                itemName = ""
-                itemDescription = ""
-                itemImportance = false
+                if (isFill(itemName, itemDescription)) {
+                    val dbList: List<ToDoItems>? = Hawk.get("ToDoes", emptyList())
+                    val finalList = dbList?.toMutableList()
+                    finalList?.add(ToDoItems(itemName, itemDescription, itemImportance, false))
+                    Hawk.put("ToDoes", finalList)
+                    Toast.makeText(context, "Item Added", Toast.LENGTH_SHORT).show()
+                    itemName = ""
+                    itemDescription = ""
+                    itemImportance = false
+                } else {
+                    Toast.makeText(context, "please fill all initials", Toast.LENGTH_SHORT).show()
+                }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp)
         ) { Text("ADD") }
     }
+}
+
+fun isFill(name: String, description: String): Boolean {
+    if (name == "" || description == "") return false else return true
 }

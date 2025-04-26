@@ -71,19 +71,19 @@ class MainActivity : ComponentActivity() {
                                 selected = currentRoute == AddScreenDestination.route,
                                 onClick = { navController.navigate(AddScreenDestination.route) },
                                 icon = { Icon(Icons.Default.Add, "") },
-                                label = { Text("") }
+                                label = { null }
                             )
                             NavigationBarItem(
                                 selected = currentRoute == HomeScreenDestination.route,
                                 onClick = { navController.navigate(HomeScreenDestination.route) },
                                 icon = { Icon(Icons.Default.Home, "") },
-                                label = { Text("") }
+                                label = { null }
                             )
                             NavigationBarItem(
                                 selected = currentRoute == ListScreenDestination.route,
                                 onClick = { navController.navigate(ListScreenDestination.route) },
                                 icon = { Icon(Icons.Default.Menu, "") },
-                                label = { Text("") }
+                                label = { null }
                             )
                         }
                     }) { innerPadding ->
