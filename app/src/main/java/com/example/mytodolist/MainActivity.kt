@@ -24,6 +24,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -49,9 +51,9 @@ class MainActivity : ComponentActivity() {
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = currentBackStackEntry?.destination?.route
                 val title = when (currentRoute) {
-                    HomeScreenDestination.route -> "Home"
-                    AddScreenDestination.route -> "Add"
-                    ListScreenDestination.route -> "List"
+                    HomeScreenDestination.route -> ""
+                    AddScreenDestination.route -> "What To Do Next?"
+                    ListScreenDestination.route -> "To Do's"
                     else -> ""
                 }
                 Scaffold(modifier = Modifier.fillMaxSize(),
@@ -61,7 +63,8 @@ class MainActivity : ComponentActivity() {
                                 title,
                                 modifier = Modifier,
                                 fontSize = 32.sp,
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.primary,
+                                /*fontFamily = FontFamily(Font(R.font.daphthello))*/
                             )
                         })
                     },

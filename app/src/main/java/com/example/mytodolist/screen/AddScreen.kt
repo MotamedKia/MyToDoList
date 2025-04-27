@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -37,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -84,14 +86,16 @@ fun AddScreen(modifier: Modifier = Modifier) {
             value = itemName,
             onValueChange = { if (it.length <= 15) itemName = it },
             label = { Text("Name") },
-            maxLines = 1
+            maxLines = 1,
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
         )
         Spacer(Modifier.height(24.dp))
         OutlinedTextField(
             value = itemDescription,
             onValueChange = { itemDescription = it },
             label = { Text("Description") },
-            maxLines = 8
+            maxLines = 8,
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
         )
         Spacer(Modifier.height(24.dp))
         Row(
@@ -99,8 +103,8 @@ fun AddScreen(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Important")
-            Spacer(Modifier.width(75.dp))
+            Text("Is it important?")
+            Spacer(Modifier.width(80.dp))
             IconButton(onClick = { itemImportance = !itemImportance }) {
                 Icon(if (itemImportance) Icons.Default.Done else Icons.Default.Close, "")
             }

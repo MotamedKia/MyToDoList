@@ -51,11 +51,18 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 36.dp, vertical = 54.dp)
+            .padding(end = 36.dp, start = 36.dp, bottom = 54.dp, top = 12.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            "The Sayer".uppercase(),
+            fontFamily = FontFamily(Font(R.font.daphthello)),
+            textAlign = TextAlign.Center,
+            fontSize = 35.sp,
+            style = TextStyle(lineHeight = 45.sp)
+        )
         Card(
             modifier = Modifier.fillMaxWidth(),
             onClick = { motive = motiveList[RandomIndex(motiveList)] },

@@ -1,26 +1,19 @@
 package com.example.mytodolist.screen
 
+import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.sp
-import com.example.mytodolist.R
 import com.example.mytodolist.logic.ToDoItems
 import com.example.mytodolist.screen.destinations.ListScreenDestination
 import com.orhanobut.hawk.Hawk
@@ -37,33 +30,45 @@ fun ListScreen(modifier: Modifier = Modifier, navigator: DestinationsNavigator) 
     LaunchedEffect(Unit) {
         toDoListState = Hawk.get<List<ToDoItems>?>("ToDoes", emptyList()).toMutableList()
     }
-   
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(toDoListState ?: emptyList()) {
-            MyToDoItem(toDoItems = it, listState = toDoListState, onClick = {
+            MyToDoItem(toDoItems = it, listState = toDoListState, onDoneClick = {
                 showItemDialog = it
+            }, onDeleteClick = {
+                deleteFunction(it, toDoListState, navigator, context)
             })
         }
     }
     showItemDialog?.let { item ->
         DetailedDialog(onConfirmClick = {
-            val updatedList: List<ToDoItems>? =
-                Hawk.get("ToDoes", emptyList())
-            val finalList = updatedList?.toMutableList()
-            finalList?.remove(item)
-            Hawk.put("ToDoes", finalList)
-            toDoListState = Hawk.get("ToDoes", emptyList())
-            navigator.navigate(ListScreenDestination)
-            Toast.makeText(
-                context,
-                "Item Deleted",
-                Toast.LENGTH_SHORT
-            )
-                .show()
+            deleteFunction(item, toDoListState, navigator, context)
             showItemDialog = null
         }, onDismiss = { showItemDialog = null }, toDoItem = item)
     }
+}
+
+private fun deleteFunction(
+    item: ToDoItems,
+    toDoListState: List<ToDoItems>?,
+    navigator: DestinationsNavigator,
+    context: Context
+) {
+    var toDoListState1 = toDoListState
+    val updatedList: List<ToDoItems>? =
+        Hawk.get("ToDoes", emptyList())
+    val finalList = updatedList?.toMutableList()
+    finalList?.remove(item)
+    Hawk.put("ToDoes", finalList)
+    toDoListState1 = Hawk.get("ToDoes", emptyList())
+    navigator.navigate(ListScreenDestination)
+    Toast.makeText(
+        context,
+        "Item Deleted",
+        Toast.LENGTH_SHORT
+    )
+        .show()
 }
