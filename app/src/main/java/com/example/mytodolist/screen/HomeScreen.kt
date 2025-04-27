@@ -57,7 +57,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            "The Sayer".uppercase(),
+            motive.sayer.uppercase(),
             fontFamily = FontFamily(Font(R.font.daphthello)),
             textAlign = TextAlign.Center,
             fontSize = 35.sp,
@@ -75,7 +75,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    motive,
+                    motive.quote,
                     fontFamily = FontFamily(Font(R.font.bonheur_royale)),
                     textAlign = TextAlign.Center,
                     fontSize = 55.sp,

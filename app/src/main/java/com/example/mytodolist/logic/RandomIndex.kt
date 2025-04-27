@@ -1,5 +1,5 @@
 package com.example.mytodolist.logic
 
-fun RandomIndex(list: List<String>): Int {
+fun RandomIndex(list: List<MotiveQuotes>): Int {
     return list.indices.random()
 }
