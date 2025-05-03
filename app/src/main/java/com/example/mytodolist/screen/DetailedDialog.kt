@@ -39,7 +39,7 @@ fun DetailedDialog(
     Dialog(onDismissRequest = { onDismiss() }) {
         Card(
             modifier = Modifier
-                .size(400.dp, 400.dp),
+                .size(300.dp, 350.dp),
             shape = RoundedCornerShape(90.dp),
             colors = if (toDoItem.importance) {
                 CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)

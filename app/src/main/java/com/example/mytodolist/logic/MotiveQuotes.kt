@@ -21,6 +21,9 @@ val motiveList = listOf(
     MotiveQuotes(
         "Success is not final, failure is not fatal: it is the courage to continue that counts.",
         "Winston Churchill"
+    ), MotiveQuotes(
+        "We shall not live our lives wondering if we could have done more.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "Do what you can, with what you have, where you are.",
@@ -37,10 +40,21 @@ val motiveList = listOf(
     MotiveQuotes(
         "Everything you've ever wanted is on the other side of fear.",
         "George Addair"
+    ), MotiveQuotes(
+        "Your future legacy is what you earn today.",
+        "The Programmer"
+    )
+    ,MotiveQuotes(
+        "Dedicate yourself fully, and success will follow you.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "I find that the harder I work, the more luck I seem to have.",
         "Thomas Jefferson"
+    )
+    ,MotiveQuotes(
+        "Life gets boring if you don't move forward!",
+        "The Programmer"
     ),
     MotiveQuotes(
         "Act as if what you do makes a difference. It does.",
@@ -49,6 +63,10 @@ val motiveList = listOf(
     MotiveQuotes(
         "It does not matter how slowly you go as long as you do not stop.",
         "Confucius"
+    )
+    ,MotiveQuotes(
+        "Each day is a fresh canvas, paint it brighter than yesterday.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "Hardships often prepare ordinary people for an extraordinary destiny.",
@@ -65,10 +83,18 @@ val motiveList = listOf(
     MotiveQuotes(
         "Make each day your masterpiece.",
         "John Wooden"
+    )
+    ,MotiveQuotes(
+        "Yes, Icarus fell, but for a moment, he touched the sky.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "It always seems impossible until it’s done.",
         "Nelson Mandela"
+    )
+    ,MotiveQuotes(
+        "Shape a future where 'what ifs' are answered by action.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
@@ -77,6 +103,10 @@ val motiveList = listOf(
     MotiveQuotes(
         "You don’t have to be great to start, but you have to start to be great.",
         "Zig Ziglar"
+    )
+    ,MotiveQuotes(
+        "Dreams are worth the risk.",
+        "The Programmer"
     ),
     MotiveQuotes(
         "Everything is hard before it is easy.",
@@ -89,5 +119,9 @@ val motiveList = listOf(
     MotiveQuotes(
         "Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart.",
         "Roy T. Bennett"
+    )
+    ,MotiveQuotes(
+        "Let's try something new today, like being hopeful about the future.",
+        "The Programmer"
     )
 )

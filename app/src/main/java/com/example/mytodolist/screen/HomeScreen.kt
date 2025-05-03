@@ -1,5 +1,9 @@
 package com.example.mytodolist.screen
 
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.example.mytodolist.R
 import com.example.mytodolist.logic.RandomIndex
 import com.example.mytodolist.logic.ToDoItems
+import com.example.mytodolist.logic.TransformString
 import com.example.mytodolist.logic.motiveList
 import com.orhanobut.hawk.Hawk
 import com.ramcosta.composedestinations.annotation.Destination
@@ -38,8 +44,14 @@ import com.ramcosta.composedestinations.annotation.Destination
 @Destination(start = true)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    var motive by remember { mutableStateOf(motiveList[RandomIndex(motiveList)]) }
+    val motive by remember { mutableStateOf(motiveList) }
+    var shuffleMotive by remember { mutableStateOf(motive.shuffled()) }
+    var currentIndex by remember { mutableStateOf(0) }
+
     var toDoListState by remember { mutableStateOf<List<ToDoItems>?>(null) }
+    val context = LocalContext.current
+    var showSearchDialog by remember { mutableStateOf(false) }
+    var searchInput by remember { mutableStateOf("") }
 
     toDoListState = Hawk.get<List<ToDoItems>?>("ToDoes", emptyList()).toMutableList()
 
@@ -47,7 +59,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     val imporNum by remember { mutableStateOf(toDoListState?.filter { it.importance }?.size) }
     val doneNum by remember { mutableStateOf(toDoListState?.filter { it.done }?.size) }
 
-//    Column(modifier = Modifier.fillMaxSize()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,15 +68,25 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            motive.sayer.uppercase(),
+            shuffleMotive[currentIndex].sayer.uppercase(),
             fontFamily = FontFamily(Font(R.font.daphthello)),
             textAlign = TextAlign.Center,
             fontSize = 35.sp,
-            style = TextStyle(lineHeight = 45.sp)
+            style = TextStyle(lineHeight = 45.sp),
+            modifier = Modifier.clickable {
+                showSearchDialog = true
+                searchInput = shuffleMotive[currentIndex].sayer
+            }
         )
         Card(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { motive = motiveList[RandomIndex(motiveList)] },
+            onClick = {
+                currentIndex++
+                if (currentIndex >= shuffleMotive.size) {
+                    shuffleMotive = motive.shuffled()
+                    currentIndex = 0
+                }
+            },
             shape = RoundedCornerShape(50.dp)
         ) {
             Row(
@@ -75,7 +96,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Text(
-                    motive.quote,
+                    shuffleMotive[currentIndex].quote,
                     fontFamily = FontFamily(Font(R.font.bonheur_royale)),
                     textAlign = TextAlign.Center,
                     fontSize = 55.sp,
@@ -102,5 +123,24 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             }
         }
     }
-//    }
+    if (showSearchDialog) {
+        SearchDialog(
+            searchInput = searchInput,
+            onDismiss = { showSearchDialog = false },
+            onConfirmClick = {
+                if (searchInput != "The Programmer") {
+                    val url =
+                        "https://www.google.com/search?q=who+is+${TransformString(searchInput)}"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                } else {
+                    val url = "https://github.com/MotamedKia"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                }
+                Toast.makeText(context, "Searching For $searchInput", Toast.LENGTH_SHORT)
+                    .show()
+                showSearchDialog = false
+            })
+    }
 }
