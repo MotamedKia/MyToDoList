@@ -1,8 +1,8 @@
 package com.example.mytodolist.logic
 
 data class ToDoItems(
-    val name: String,
-    val description: String,
-    val importance: Boolean,
+    var name: String,
+    var description: String,
+    var importance: Boolean,
     var done: Boolean
 )

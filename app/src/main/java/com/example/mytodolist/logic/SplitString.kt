@@ -12,5 +12,5 @@ fun SplitString(input: String, segmentSize: Int): String {
         index = end
     }
 
-    return result.toString().trim()
+    return result.toString().trim().replace(" ", "")
 }

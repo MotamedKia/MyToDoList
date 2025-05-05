@@ -1,5 +1,6 @@
 package com.example.mytodolist.screen
 
+import android.database.sqlite.SQLiteDoneException
 import android.widget.Toast
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollable
@@ -52,10 +53,16 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 @Destination
 @Composable
-fun AddScreen(modifier: Modifier = Modifier) {
-    var itemName by rememberSaveable { mutableStateOf("") }
-    var itemDescription by rememberSaveable { mutableStateOf("") }
-    var itemImportance by rememberSaveable { mutableStateOf(false) }
+fun AddScreen(
+    modifier: Modifier = Modifier,
+    name: String = "",
+    description: String = "",
+    importance: Boolean = false,
+    done: Boolean = false
+) {
+    var itemName by rememberSaveable { mutableStateOf(name) }
+    var itemDescription by rememberSaveable { mutableStateOf(description) }
+    var itemImportance by rememberSaveable { mutableStateOf(importance) }
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
@@ -116,17 +123,29 @@ fun AddScreen(modifier: Modifier = Modifier) {
         Spacer(Modifier.height(24.dp))
         Button(
             onClick = {
-                if (isFill(itemName, itemDescription)) {
-                    val dbList: List<ToDoItems>? = Hawk.get("ToDoes", emptyList())
-                    val finalList = dbList?.toMutableList()
-                    finalList?.add(ToDoItems(itemName, itemDescription, itemImportance, false))
+                val dbList: List<ToDoItems>? = Hawk.get("ToDoes", emptyList())
+                val finalList = dbList?.toMutableList()
+                if (dbList?.contains(ToDoItems(name, description, importance, done)) == true) {
+                    finalList?.find { it.name == name }?.name = itemName
+                    finalList?.find { it.name == name }?.description = itemDescription
+                    finalList?.find { it.name == name }?.importance = itemImportance
                     Hawk.put("ToDoes", finalList)
-                    Toast.makeText(context, "Item Added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Item Edited", Toast.LENGTH_SHORT).show()
                     itemName = ""
                     itemDescription = ""
                     itemImportance = false
                 } else {
-                    Toast.makeText(context, "please fill all initials", Toast.LENGTH_SHORT).show()
+                    if (isFill(itemName, itemDescription)) {
+                        finalList?.add(ToDoItems(itemName, itemDescription, itemImportance, false))
+                        Hawk.put("ToDoes", finalList)
+                        Toast.makeText(context, "Item Added", Toast.LENGTH_SHORT).show()
+                        itemName = ""
+                        itemDescription = ""
+                        itemImportance = false
+                    } else {
+                        Toast.makeText(context, "please fill all initials", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             },
             modifier = Modifier
