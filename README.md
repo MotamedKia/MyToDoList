@@ -52,4 +52,4 @@ This repository contains the source code for the **MyToDoList app**, an android 
 ---
 
 ### 📱 Download for free for **Android**
-### 👉 [click here to download](app/release/app-release.apk)
+### 👉 [click here to download]([app/release/app-release.apk](https://github.com/MotamedKia/MyToDoList/releases/download/untagged-bd01af8bd754599756a7/app-release.apk))
