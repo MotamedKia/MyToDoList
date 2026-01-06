@@ -134,7 +134,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     context.startActivity(intent)
                 } else {
-                    val url = "https://github.com/MotamedKia"
+                    val url = /*"https://github.com/MotamedKia"*/
+                        "https://www.linkedin.com/in/amir-motamedkia"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     context.startActivity(intent)
                 }
