@@ -1,5 +1,6 @@
 package com.example.mytodolist
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -30,6 +31,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.MyToDoListTheme
 import com.example.mytodolist.logic.ExitDialog
+import com.example.mytodolist.notification.ScheduleNotification
+import com.example.mytodolist.notification.requestExactAlarmPermission
 import com.example.mytodolist.screen.NavGraphs
 import com.example.mytodolist.screen.destinations.AddScreenDestination
 import com.example.mytodolist.screen.destinations.HomeScreenDestination

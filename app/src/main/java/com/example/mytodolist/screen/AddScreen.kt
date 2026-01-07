@@ -1,6 +1,7 @@
 package com.example.mytodolist.screen
 
 import android.database.sqlite.SQLiteDoneException
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollable
@@ -48,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.example.mytodolist.R
 import com.example.mytodolist.logic.SplitString
 import com.example.mytodolist.logic.ToDoItems
+import com.example.mytodolist.logic.motiveList
 import com.orhanobut.hawk.Hawk
 import com.ramcosta.composedestinations.annotation.Destination
 
