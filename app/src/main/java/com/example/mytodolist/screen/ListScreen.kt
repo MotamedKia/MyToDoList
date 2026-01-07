@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.mytodolist.logic.ToDoItems
-import com.example.mytodolist.screen.destinations.AddScreenDestination
 import com.example.mytodolist.screen.destinations.ListScreenDestination
 import com.orhanobut.hawk.Hawk
 import com.ramcosta.composedestinations.annotation.Destination
