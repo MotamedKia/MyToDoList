@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,8 +17,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -50,9 +48,8 @@ fun DetailedDialog(
     val scrollState = rememberScrollState()
     Dialog(onDismissRequest = { onDismiss() }) {
         Card(
-            modifier = Modifier
-                .size(300.dp, 350.dp),
-            shape = RoundedCornerShape(90.dp),
+            modifier = modifier.sizeIn(maxWidth = 300.dp, maxHeight = 500.dp),
+            shape = RoundedCornerShape(20.dp),
             colors = if (toDoItem.importance) {
                 CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
             } else {
@@ -60,11 +57,10 @@ fun DetailedDialog(
             }
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier = modifier
                     .padding(24.dp)
                     .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -77,11 +73,11 @@ fun DetailedDialog(
                     fontFamily = FontFamily(Font(R.font.daphthello)),
                     fontSize = 50.sp
                 )
-                Spacer(Modifier.height(24.dp))
+                Spacer(modifier.height(24.dp))
                 Card(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth(),
-                    shape = RoundedCornerShape(60.dp),
+                    shape = RoundedCornerShape(25.dp),
                     colors = if (toDoItem.importance) {
                         CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
                     } else {
@@ -89,7 +85,7 @@ fun DetailedDialog(
                     }
                 ) {
                     Column(
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(34.dp),
                         verticalArrangement = Arrangement.Center,
@@ -100,14 +96,14 @@ fun DetailedDialog(
                                 MaterialTheme.colorScheme.primary
                             } else {
                                 MaterialTheme.colorScheme.onPrimary
-                            }, modifier = Modifier.fillMaxWidth()
+                            }, modifier = modifier.fillMaxWidth()
                         )
                     }
                 }
 
-                Spacer(Modifier.height(24.dp))
+                Spacer(modifier.height(24.dp))
                 Row(
-                    Modifier
+                    modifier
                         .background(
                             color = if (toDoItem.importance) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary,
                             shape = RoundedCornerShape(50.dp)
@@ -123,7 +119,7 @@ fun DetailedDialog(
                             tint = if (toDoItem.importance) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                    Spacer(Modifier.width(12.dp))
+                    Spacer(modifier.width(12.dp))
                     IconButton(onClick = {
                         onEditClick()
                         navigator.navigate(
