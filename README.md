@@ -31,7 +31,7 @@ This repository contains the source code for the **MyToDoList app**, an android 
 >There is a *smoothe* animation for when the user clicks on the checkbox of each item, revealing the *delete* icon button next to it.
 ---
 
-![detailsdialogue_screenshot](screenshots/details_dialogue_update_both.PNG)
+![detailsdialogue_screenshot](screenshots/details_dialogue_update_both.png)
 >A dialogue that contains the full information of the items written by the users.
 >
 >There are two icon buttons here. **Delete** and **Edit**.
